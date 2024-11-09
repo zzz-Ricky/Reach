@@ -1,4 +1,6 @@
 import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { SimpleLineIcons } from '@expo/vector-icons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 
@@ -30,16 +32,17 @@ export default function TabLayout() {
                 name="leaderboards"
                 options={{
                     title: 'Leaderboards',
-                    tabBarIcon: ({ color }) => <MaterialIcons name="leaderboard" size={24} color="black" />,
+                    tabBarIcon: ({ color }) => <SimpleLineIcons name="trophy" size={24} color={color} />,
                 }}
             />
             <Tabs.Screen
-                name="settings"
+                name="profile"
                 options={{
-                    title: 'Settings',
-                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+                    title: 'Profile',
+                    tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
                 }}
             />
         </Tabs>
     );
 }
+

@@ -3,6 +3,7 @@ import { useFonts } from 'expo-font';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { useEffect } from 'react';
+import { StyleSheet, View, Button } from 'react-native';
 import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
@@ -29,7 +30,24 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
       <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="(tabs)" options={{
+          title: 'Home',
+          headerShown: true,
+          headerRight: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#000"
+            />
+          ),
+          headerLeft: () => (
+            <Button
+              onPress={() => alert('Back button pressed!')}
+              title="Back"
+              color="#000"
+            />
+          ),
+        }} />
         <Stack.Screen name="+not-found" />
       </Stack>
     </ThemeProvider>

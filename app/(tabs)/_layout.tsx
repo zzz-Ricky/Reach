@@ -27,27 +27,27 @@ export default function TabLayout() {
       <Tabs.Screen
         name="ask" // This is the ask screen
         options={{
-          title: 'Ask',
+          title: 'ask',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'question' : 'question'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
         name="request" // This is the request screen
         options={{
-          title: 'Request',
+          title: 'Requests',
           tabBarIcon: ({ color, focused }) => (
             <TabBarIcon name={focused ? 'document-text' : 'document-text-outline'} color={color} />
           ),
         }}
       />
       <Tabs.Screen
-        name="community" // This is the community screen
+        name="leaderboards" // This is the community screen
         options={{
-          title: 'Community',
+          title: 'Leaderboards',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'people' : 'people-outline'} color={color} />
+            <TabBarIcon name={focused ? 'trophy-outline' : 'trophy-outline'} color={color} />
           ),
         }}
       />

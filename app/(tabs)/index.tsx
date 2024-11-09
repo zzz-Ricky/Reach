@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { ThemedView } from '@/components/ThemedView'; // Assuming this component respects the color scheme
 import { useColorScheme } from '@/hooks/useColorScheme'; // Custom hook to detect color scheme
 
@@ -13,6 +13,7 @@ export default function BlankPage() {
       {/* You can add content here that respects the current theme */}
       <View style={styles.centeredView}>
         {/* Placeholder text or elements */}
+
 
       </View>
     </ThemedView>

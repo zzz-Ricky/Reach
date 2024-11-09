@@ -22,7 +22,7 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="request"
                 options={{
-                    title: 'Request',
+                    title: 'Requests',
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="group" color={color} />,
                 }}
             />

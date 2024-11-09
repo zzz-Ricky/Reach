@@ -16,11 +16,11 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="explore" // This is the explore screen
+        name="index" // This is the home screen
         options={{
-          title: 'Explore',
+          title: 'Home',
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
+            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
           ),
         }}
       />

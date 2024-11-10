@@ -1,4 +1,5 @@
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
+import Card from "../../components/UI/Card";
 
 export default function Request() {
   return (
@@ -9,7 +10,12 @@ export default function Request() {
         alignItems: "center",
       }}
     >
-      <Text>Requests</Text>
+      <ScrollView>
+        <Card />
+        <Card />
+        <Card />
+      </ScrollView>
+      
     </View>
   );
 }

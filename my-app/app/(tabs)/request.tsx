@@ -9,7 +9,7 @@ export default function Request() {
         alignItems: "center",
       }}
     >
-      <Text>Request</Text>
+      <Text>Requests</Text>
     </View>
   );
 }

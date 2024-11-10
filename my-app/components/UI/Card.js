@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, Button, Dimensions } from 'react-native'
 
 const { width } = Dimensions.get('window');
 
-const Card = ({ pfp, name = "Granny", score, nature = "Unknown", personsRequired = "N/A", title = "Placeholder", message = "This is a sample description", picture, reachButton }) => {
+const Card = ({ pfp, name = "Granny", score, nature = "Post", personsRequired = "", title = "Fixed Laptop!!!", message = "Oh my gah, my lapop is fixer", picture = "https://media.istockphoto.com/id/157524164/photo/surprised-or-shocked-senior-woman-grandmother-at-computer.jpg?s=612x612&w=0&k=20&c=wDwXI9Fqecx4za1x6vGnn6e5t2uzdXSy2hvDe4DWi6k=", reachButton }) => {
     return (
         <View style={styles.container}>
             <View style={styles.heading}>
@@ -11,7 +11,10 @@ const Card = ({ pfp, name = "Granny", score, nature = "Unknown", personsRequired
                 <Text style={styles.name}>{name}</Text>
                 <Text style={styles.score}>{score}</Text>
                 <Text style={styles.nature}>{nature}</Text>
-                <Text style={styles.personsRequired}>{personsRequired}</Text>
+                <Text>
+                    {personsRequired !== "" && " | "}
+                    <Text style={styles.personsRequired}>{personsRequired}</Text>
+                </Text>
             </View>
             <View style={styles.subCard}>
                 <View styles={styles.leftSubCard}>
@@ -19,10 +22,17 @@ const Card = ({ pfp, name = "Granny", score, nature = "Unknown", personsRequired
                     <Text style={styles.message}>{message}</Text>
                 </View>
                 <View styles={styles.rightSubCard}>
-                    <Image style={styles.picture} />
+                    <Image
+                        style={styles.picture}
+                        source={{ uri: picture }} // `picture` is a URL or URI string
+                    />
+
                 </View>
             </View>
-            <Button title={"Reach"} style={styles.reachButton}>{reachButton}</Button>
+            <View style={reachButton}>
+                <Button title={"Reach"} style={styles.reachButton}>{reachButton}</Button>
+            </View>
+
         </View>
     );
 };
@@ -38,7 +48,7 @@ const styles = StyleSheet.create({
         borderColor: '#808080', // Set border color to match the previous background color
         borderWidth: 2, // Add width for the border to make the outline visible
         borderRadius: 12, // Rounded corners for the card
-        maxWidth: width - 10,
+        maxWidth: width - 20,
     },
     heading: {
         display: "flex",
@@ -111,7 +121,9 @@ const styles = StyleSheet.create({
     },
 
     reachButton: {
-
+        borderWidth: 2,
+        borderColor: "black",
+        backgroundColor: "red",
     }
 });
 

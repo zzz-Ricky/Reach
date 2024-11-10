@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Text, View, ScrollView } from "react-native";
 import Card from "../../components/UI/Card"
 
 export default function Index() {
@@ -10,7 +10,14 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Card />
+      <ScrollView>
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+        <Card />
+      </ScrollView>
+
     </View>
   );
 }

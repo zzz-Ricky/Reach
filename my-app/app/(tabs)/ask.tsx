@@ -12,7 +12,7 @@ export default function Ask() {
     const [longitude, setLongitude] = useState("");
     const [createdAt, setCreatedAt] = useState(new Date().toISOString());
 
-    const handleImagePicker = (setImage) => {
+    const handleImagePicker = (setImage: any) => {
         // Your image picker logic here
     };
 
@@ -92,11 +92,11 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 20,
         justifyContent: "center",
-        backgroundColor: "#ADD8E6", // Light blue background
+        backgroundColor: "#F0F8FF",
     },
     svg: {
-        marginBottom: 20, // Add spacing to ensure the SVG doesn't collide with other elements
-        alignSelf: "center",  // Centers the SVG horizontally
+        marginBottom: 20,
+        alignSelf: "center", 
     },
     header: {
         fontSize: 24,

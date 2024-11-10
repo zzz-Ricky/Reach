@@ -8,9 +8,8 @@ const users = [
     name: 'Granny',
     message: 'Fixed Laptop!!! Oh my god, laptop is working.',
     image: 'https://picsum.photos/200/300',
-    timestamp: new Date().toISOString(), // Add timestamp for better UX
+    timestamp: new Date().toISOString(),
   },
-  // Add more users here
 ];
 
 export default function Index() {

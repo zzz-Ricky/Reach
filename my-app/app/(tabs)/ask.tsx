@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Text, View, TextInput, Button, TouchableOpacity, StyleSheet, Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
-import * as ImagePicker from 'react-native-image-picker';
+import { Text, View, TextInput, TouchableOpacity, StyleSheet, Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
+import * as ImagePicker from 'expo-image-picker';
+import axios from 'axios';
 
 export default function Ask() {
   const [userName, setUserName] = useState("");
@@ -12,34 +13,82 @@ export default function Ask() {
   const [longitude, setLongitude] = useState("");
   const [createdAt, setCreatedAt] = useState(new Date().toISOString());
 
-  const handleImagePicker = (setImage: any) => {
-    // Your image picker logic here
+  const handleImagePicker = async (setTaskImage: React.Dispatch<React.SetStateAction<string | null>>) => {
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (permissionResult.granted === false) {
+      alert('Permission to access camera roll is required!');
+      return;
+    }
+
+    const result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setTaskImage(result.uri);
+    }
   };
-  const handleSubmit = () => {
-    if (!userName || !peopleNeeded || !taskDescription || !latitude || !longitude) {
+
+  const handleSubmit = async () => {
+    if (!userName || !peopleNeeded || !taskDescription) {
       Alert.alert("Error", "Please fill in all fields.");
       return;
     }
 
-    Alert.alert("Success", "Request submitted successfully!");
-    console.log({
-      userName,
-      peopleNeeded: parseInt(peopleNeeded),
-      taskDescription,
-      profileImage,
-      taskImage,
-      latitude: parseFloat(latitude),
-      longitude: parseFloat(longitude),
-      createdAt,
-    });
+    const data = new FormData();
+    data.append("user_name", userName);
+    data.append("people_needed", peopleNeeded);
+    data.append("task_description", taskDescription);
+    data.append("latitude", latitude);
+    data.append("longitude", longitude);
+    data.append("created_at", createdAt);
+
+    if (taskImage) {
+      const taskImageUri = taskImage;
+      const localUri = taskImageUri;
+      const filename = localUri.split('/').pop();
+      const match = /\.(\w+)$/.exec(filename ?? '');
+      const type = match ? `image/${match[1]}` : 'image';
+      data.append("task_picture", {
+        uri: localUri,
+        name: filename,
+        type,
+      });
+    }
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/ask-for-help/", data, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        }
+      });
+      Alert.alert("Success", "Request submitted successfully!");
+      console.log(response.data);
+    } catch (error) {
+      // Check if the error has a response from the server
+      if (error.response) {
+        // Server responded with a status code outside the 2xx range
+        console.error("Server Error:", error.response);
+        Alert.alert("Error", `Request failed with status: ${error.response.status}\nMessage: ${error.response.data?.detail || 'Unknown error'}`);
+      } else if (error.request) {
+        // Request was made but no response received (e.g., network issues)
+        console.error("Network Error:", error.request);
+        Alert.alert("Error", "No response received from the server. Please check your internet connection.");
+      } else {
+        // Something went wrong while setting up the request
+        console.error("Request Setup Error:", error.message);
+        Alert.alert("Error", `An error occurred: ${error.message}`);
+      }
+    }
+
   };
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <View style={styles.container}>
-
-
-
         <Text style={styles.header}>Need Assistance?</Text>
 
         {/* User Name */}
@@ -93,10 +142,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "#F0F8FF",
   },
-  svg: {
-    marginBottom: 20,
-    alignSelf: "center",
-  },
   header: {
     fontSize: 24,
     fontWeight: "bold",
@@ -110,15 +155,6 @@ const styles = StyleSheet.create({
     marginBottom: 15,
     borderRadius: 25,
     backgroundColor: "#fff",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-
-  taskDescriptionInput: {
-    maxHeight: 100,
   },
   imagePicker: {
     backgroundColor: "#007bff",
@@ -127,16 +163,13 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginBottom: 15,
   },
-  imagePickerText: {
-    color: "#fff",
-  },
   submitButton: {
     backgroundColor: "#53c972",
     padding: 15,
     alignItems: "center",
     borderRadius: 25,
     marginBottom: 15,
-    marginTop: 20
+    marginTop: 20,
   },
   submitButtonText: {
     color: "#fff",

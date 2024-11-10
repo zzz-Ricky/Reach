@@ -5,7 +5,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Tabs } from 'expo-router';
 import React from 'react';
 import { Stack } from "expo-router";
-import { Image, StyleSheet} from "react-native";
+import { Image, StyleSheet } from "react-native";
 
 export default function TabLayout() {
     return (
@@ -15,8 +15,8 @@ export default function TabLayout() {
                 options={{
                     title: 'Home',
                     headerLeft: () => (
-                        <Image style={styles.image} source = {require ("../../assets/images/Reach.png")} />
-                      ),
+                        <Image style={styles.image} source={require("../../assets/images/Reach.png")} />
+                    ),
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
                 }}
             />
@@ -25,8 +25,8 @@ export default function TabLayout() {
                 options={{
                     title: 'Ask',
                     headerLeft: () => (
-                        <Image style={styles.image} source = {require ("../../assets/images/Reach.png")} />
-                      ),
+                        <Image style={styles.image} source={require("../../assets/images/Reach.png")} />
+                    ),
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="handshake-o" color={color} />,
                 }}
             />
@@ -35,8 +35,8 @@ export default function TabLayout() {
                 options={{
                     title: 'Requests',
                     headerLeft: () => (
-                        <Image style={styles.image} source = {require ("../../assets/images/Reach.png")} />
-                      ),
+                        <Image style={styles.image} source={require("../../assets/images/Reach.png")} />
+                    ),
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="group" color={color} />,
                 }}
             />
@@ -45,8 +45,8 @@ export default function TabLayout() {
                 options={{
                     title: 'Leaderboards',
                     headerLeft: () => (
-                        <Image style={styles.image} source = {require ("../../assets/images/Reach.png")} />
-                      ),
+                        <Image style={styles.image} source={require("../../assets/images/Reach.png")} />
+                    ),
                     tabBarIcon: ({ color }) => <SimpleLineIcons name="trophy" size={24} color={color} />,
                 }}
             />
@@ -55,8 +55,8 @@ export default function TabLayout() {
                 options={{
                     title: 'Profile',
                     headerLeft: () => (
-                        <Image style={styles.image} source = {require ("../../assets/images/Reach.png")} />
-                      ),
+                        <Image style={styles.image} source={require("../../assets/images/Reach.png")} />
+                    ),
                     tabBarIcon: ({ color }) => <FontAwesome size={28} name="user" color={color} />,
                 }}
             />
@@ -64,12 +64,12 @@ export default function TabLayout() {
     );
 }
 
-const styles = StyleSheet.create({ 
+const styles = StyleSheet.create({
     image: {
-      maxHeight: 50,
-      resizeMode: 'contain',
-      width: '30%',
-      left: 10,
+        maxHeight: 50,
+        resizeMode: 'contain',
+        width: '30%',
+        left: 10,
     }
-    
-  });
+
+});

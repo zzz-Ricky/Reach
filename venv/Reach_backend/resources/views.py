@@ -6,12 +6,11 @@ from django.db.models import Avg
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Post
-from .serializers import PostSerializer
+from .serializers import *
 from .models import User
 from .models import GlobalLeaderboard
 from django.core.serializers import serialize
-from ..Reach_backend.serializer import TaskRequestSerializer
+from resources.models import *  # absolute import
 from rest_framework import status
 import os
 
@@ -111,9 +110,11 @@ def cancel_task_request(request):
 @api_view(['POST'])
 def create_task_request(request):
     if request.method == 'POST':
+        # Get the uploaded files
         profile_image = request.FILES.get('profile_image')
         task_image = request.FILES.get('task_image')
 
+        # Collect all form data
         task_request_data = {
             'user_name': request.data.get('user_name'),
             'people_needed': request.data.get('people_needed'),
@@ -123,15 +124,19 @@ def create_task_request(request):
             'profile_image': profile_image,
             'task_image': task_image,
         }
-        
-        if not all([task_request_data.user_name, task_request_data.task_description, task_request_data.people_needed, task_request_data.latitude, task_request_data.longitude]):
+
+        # Ensure required fields are provided
+        if not all([task_request_data['user_name'], task_request_data['task_description'], 
+                    task_request_data['people_needed'], task_request_data['latitude'], task_request_data['longitude']]):
             return Response({'error': 'Missing required fields'}, status=status.HTTP_400_BAD_REQUEST)
-        
+
+        # Create serializer with the incoming data
         serializer = TaskRequestSerializer(data=task_request_data)
 
         if serializer.is_valid():
+            # Save the task request data to the database
             serializer.save()
             return Response({'message': 'Task request submitted successfully!'}, status=status.HTTP_201_CREATED)
+        
+        # Return any validation errors
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-    

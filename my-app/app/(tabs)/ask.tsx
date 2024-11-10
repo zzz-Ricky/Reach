@@ -1,4 +1,5 @@
 import { Text, View } from "react-native";
+import Card from "../../components/UI/Card"
 
 export default function Ask() {
   return (
@@ -9,7 +10,7 @@ export default function Ask() {
         alignItems: "center",
       }}
     >
-      <Text>Ask</Text>
+      <Card />
     </View>
   );
 }

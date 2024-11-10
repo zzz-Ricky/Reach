@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 
-const LBEntry = ({ rank, name, score }) => {
+const LBEntry = ({ rank = "N/A", name = "Unknown", score = "N/A" }) => {
     return (
         <View style={styles.container}>
             <Text style={styles.rank}>#{rank}</Text>
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginRight: 10,
         color: '#333',
-        width: 40,
+        width: 60,
     },
     name: {
         fontSize: 16,
